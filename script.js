@@ -1,4 +1,4 @@
-const targetDate = new Date("2025-07-20T15:30:00-05:00");
+const targetDate = new Date("2026-03-21T15:30:00-05:00");
 
 function pad(num) {
   return String(num).padStart(2, "0");
@@ -45,8 +45,29 @@ function bindSmoothScroll() {
   });
 }
 
+function updateSaveParallax() {
+  const saveSection = document.getElementById("save-the-date");
+  if (!saveSection) return;
+
+  const rect = saveSection.getBoundingClientRect();
+  const viewport = window.innerHeight;
+  const total = rect.height + viewport;
+
+  const progress = Math.min(1, Math.max(0, (viewport - rect.top) / total));
+  const offset = (progress - 0.5) * 120; // move backgrounds subtly
+
+  saveSection.style.setProperty("--save-parallax", `${offset}px`);
+}
+
+function bindParallax() {
+  updateSaveParallax();
+  window.addEventListener("scroll", updateSaveParallax, { passive: true });
+  window.addEventListener("resize", updateSaveParallax);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
   bindSmoothScroll();
+  bindParallax();
 });
