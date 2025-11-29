@@ -1,3 +1,24 @@
+/* TODO LISTA DE CAMBIOS
+
+1.  en las imagenes de  donde se ven el contador  en el modo mobile tienen un efecto raro se ven como si se movieran
+2.de talles de ceremonia actualizar fecha y lugar
+3. en la seccion de itinerario, el texto de la descripcion de cada evento deberia estar justificado y hay que actualizarlo
+3.1 actualizarlo con la hora que son y con lo que se va a aser 
+4:30 inicio de ceremonia
+6:00 brindis y cocktail
+7:00 cena
+8:30 baile y fiesta
+4.  reglas y estilo
+actualizar los colores 
+lluvia de yappys
+5. cambiar la historia de nosotros
+6. hsopedaje colocar el contacto de alassandra de casa greca rio hato
+7. en la seccion de fotos ver si hay una app para agergar fotos de los invitados
+8.antes de la historiade  nosotros agregar una seccion de fotos
+y en la ultima donde dice confirmar agergar el nombre de la persona 
+
+*/
+
 const targetDate = new Date("2026-03-21T15:30:00-05:00");
 
 function pad(num) {
@@ -49,6 +70,12 @@ function updateSaveParallax() {
   const saveSection = document.getElementById("save-the-date");
   if (!saveSection) return;
 
+  // Disable the parallax shift on small screens to avoid jittery image movement
+  if (window.innerWidth <= 720) {
+    saveSection.style.setProperty("--save-parallax", "0px");
+    return;
+  }
+
   const rect = saveSection.getBoundingClientRect();
   const viewport = window.innerHeight;
   const total = rect.height + viewport;
@@ -65,9 +92,36 @@ function bindParallax() {
   window.addEventListener("resize", updateSaveParallax);
 }
 
+function personalizeRsvp() {
+  const button = document.querySelector("[data-wa-base]");
+  if (!button) return;
+
+  const baseUrl = button.dataset.waBase;
+  if (!baseUrl) return;
+
+  const defaultMessage = button.dataset.waDefault || "Confirmo mi asistencia";
+  const params = new URLSearchParams(window.location.search);
+  const guestParam = params.get("guest") || params.get("nombre") || params.get("invitado");
+  const guestName = guestParam ? guestParam.trim() : "";
+
+  let message = defaultMessage;
+  if (guestName) {
+    message = `Yo ${guestName} confirmo mi asistencia`;
+    const personalizedText = document.getElementById("rsvpPersonalized");
+    if (personalizedText) {
+      personalizedText.textContent = `Hola ${guestName}, este enlace ya incluye tu nombre.`;
+      personalizedText.hidden = false;
+    }
+  }
+
+  const encoded = encodeURIComponent(message);
+  button.href = `${baseUrl}?text=${encoded}`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
   bindSmoothScroll();
   bindParallax();
+  personalizeRsvp();
 });

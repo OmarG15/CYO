@@ -11,6 +11,10 @@
   --shadow: 0 14px 40px rgba(34, 24, 12, 0.12);
   --hero-text: #f9f8f4;
   --radius: 18px;
+.card.card--soft .placeholder {
+  font-style: italic;
+  color: var(--muted);
+}
 }
 
 *,
@@ -452,6 +456,10 @@ a {
   margin-top: 8px;
 }
 
+.palette--sunset {
+  max-width: 360px;
+}
+
 .palette__swatch {
   padding: 6px 12px;
   border-radius: 12px;
@@ -461,20 +469,36 @@ a {
   font-size: 13px;
 }
 
-.palette__swatch--sage {
-  background: linear-gradient(135deg, #8aa174, #6f8f5f);
+.palette__swatch--limoncello {
+  background: linear-gradient(135deg, #dce7af, #c6d88a);
 }
 
-.palette__swatch--sand {
-  background: linear-gradient(135deg, #c49b63, #b0864f);
+.palette__swatch--salvia {
+  background: linear-gradient(135deg, #9db583, #7f9b68);
 }
 
-.palette__swatch--ink {
-  background: linear-gradient(135deg, #5b5c64, #43444b);
+.palette__swatch--kiwi {
+  background: linear-gradient(135deg, #51a86b, #2f8051);
 }
 
-.rule-card .palette__swatch--ink {
-  background: linear-gradient(135deg, #6a6a44, #6a6a44);
+.palette__swatch--mandarina {
+  background: linear-gradient(135deg, #ff9a45, #ff7b00);
+}
+
+.palette__swatch--coral {
+  background: linear-gradient(135deg, #f97a6a, #f55151);
+}
+
+.palette__swatch--bugambilia {
+  background: linear-gradient(135deg, #ea4d92, #c72b6f);
+}
+
+.palette__swatch--champagne {
+  background: linear-gradient(135deg, #f9c0c5, #f6a9b1);
+}
+
+.palette__swatch--beige {
+  background: linear-gradient(135deg, #ead7c0, #d6bfa2);
 }
 
 /* Timeline */
@@ -500,6 +524,10 @@ a {
 
 .timeline__content h4 {
   margin: 0 0 4px;
+}
+
+.timeline__content p {
+  text-align: justify;
 }
 
 /* Formulario */
@@ -574,6 +602,11 @@ textarea:focus {
   color: var(--text);
   font-weight: 600;
   margin-top: 6px;
+}
+
+.rsvp__personalized {
+  font-weight: 600;
+  color: var(--accent-strong);
 }
 
 .rsvp__date {
@@ -708,6 +741,120 @@ textarea:focus {
   justify-items: center;
 }
 
+.photo-showcase {
+  display: grid;
+  gap: 24px;
+}
+
+.photo-option {
+  border-radius: var(--radius);
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 18px;
+}
+
+.photo-option__header {
+  text-align: center;
+  display: grid;
+  gap: 8px;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.photo-grid__item {
+  min-height: 180px;
+  border-radius: 16px;
+  background-size: cover;
+  background-position: center;
+}
+
+.photo-grid__item--text {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.photo-collage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.photo-collage__item {
+  min-height: 160px;
+  border-radius: 18px;
+  background-size: cover;
+  background-position: center;
+}
+
+.photo-collage__item--tall {
+  min-height: 260px;
+}
+
+.photo-collage__item--wide {
+  grid-column: span 2;
+  min-height: 200px;
+}
+
+.photo-collage__note {
+  grid-column: span 2;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(196, 155, 99, 0.15);
+  font-size: 14px;
+  text-align: center;
+}
+
+.photo-carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 6px;
+}
+
+.photo-carousel__item {
+  min-width: clamp(240px, 60vw, 360px);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 14px;
+  scroll-snap-align: start;
+  display: grid;
+  gap: 10px;
+}
+
+.photo-carousel__item img {
+  width: 100%;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.photo-carousel__item p {
+  margin: 0;
+  text-align: center;
+}
+
+.photo-carousel__credit {
+  font-weight: 600;
+}
+
+.photo-carousel__hint {
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
+}
+
 .rule-card {
   background: #f3f3f3;
   border-radius: 12px;
@@ -793,10 +940,15 @@ textarea:focus {
 .story__grid {
   position: absolute;
   inset: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 10px;
-  padding: 10px;
+  padding: 0;
+}
+
+.story__backdrop {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: saturate(0.95);
 }
 
 .story__tile {
@@ -924,6 +1076,7 @@ textarea:focus {
 
   .timeline {
     border-left: none;
+    padding-left: 0;
   }
 
   .timeline__item {
