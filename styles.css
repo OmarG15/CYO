@@ -999,6 +999,32 @@ body.has-envelope-overlay {
   border-bottom-right-radius: calc(var(--env-radius) / 2);
 }
 
+.envelope-seal {
+  position: absolute;
+  top: calc(var(--env-height) / 2.15);
+  left: 50%;
+  width: clamp(54px, 12vw, 82px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(1);
+  background: url("resources/golden-heart-seal-transparent.png") center / contain no-repeat;
+  border-radius: 50%;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.22));
+  pointer-events: none;
+  z-index: 6;
+  opacity: 1;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+#envelope.open .envelope-seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+#envelope.close .envelope-seal {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
 .envelope-clip {
   position: initial;
   /* Extra vertical space so the photos can rise without being recortadas */
@@ -1184,6 +1210,15 @@ body.has-envelope-overlay {
 #envelope.close .heart {
   opacity: 0;
   animation: none;
+}
+
+#bgMusic {
+  position: fixed;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .heart.a1 {

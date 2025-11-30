@@ -133,6 +133,23 @@ function setupEnvelopeOverlay() {
   const openBtn = document.getElementById("envelopeOpen");
   const resetBtn = document.getElementById("envelopeReset");
   const closeBtn = document.getElementById("overlayClose");
+  const bgAudio = document.getElementById("bgMusic");
+  let musicStarted = false;
+
+  const startMusic = () => {
+    if (musicStarted || !bgAudio) return;
+    bgAudio.volume = 0.65;
+    const playPromise = bgAudio.play();
+    if (playPromise && typeof playPromise.then === "function") {
+      playPromise.then(() => {
+        musicStarted = true;
+      }).catch(() => {
+        // Autoplay might be blocked; we'll retry on envelope open
+      });
+    } else {
+      musicStarted = true;
+    }
+  };
 
   const hideOverlay = () => {
     overlay.classList.add("overlay-hidden");
@@ -145,6 +162,7 @@ function setupEnvelopeOverlay() {
     envelope.classList.add("open");
     envelope.classList.remove("close");
     stamp?.classList.add("envelope-stamp--show");
+    startMusic();
   };
 
   const closeEnvelope = () => {
@@ -160,6 +178,9 @@ function setupEnvelopeOverlay() {
 
   closeBtn?.addEventListener("click", hideOverlay);
   stamp?.addEventListener("click", hideOverlay);
+
+  // Intentar reproducir apenas se cargue la página
+  startMusic();
 }
 
 function setGuestLabel() {
