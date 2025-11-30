@@ -1,31 +1,55 @@
-/* TODO LISTA DE CAMBIOS
 
-1.  en las imagenes de  donde se ven el contador  en el modo mobile tienen un efecto raro se ven como si se movieran
-2.de talles de ceremonia actualizar fecha y lugar
-3. en la seccion de itinerario, el texto de la descripcion de cada evento deberia estar justificado y hay que actualizarlo
-3.1 actualizarlo con la hora que son y con lo que se va a aser 
-4:30 inicio de ceremonia
-6:00 brindis y cocktail
-7:00 cena
-8:30 baile y fiesta
-4.  reglas y estilo
-actualizar los colores 
-lluvia de yappys
-5. cambiar la historia de nosotros
-6. hsopedaje colocar el contacto de alassandra de casa greca rio hato
-7. en la seccion de fotos ver si hay una app para agergar fotos de los invitados
-8.antes de la historiade  nosotros agregar una seccion de fotos
-y en la ultima donde dice confirmar agergar el nombre de la persona 
-
-*/
 
 const targetDate = new Date("2026-03-21T15:30:00-05:00");
+
+// Edita este mapa: cada invitado y sus cupos reservados
+const guestSeatsMap = {
+  "celia": 2,
+  "anthony": 2,
+};
 
 function getGuestName() {
   const params = new URLSearchParams(window.location.search);
   const guestParam =
     params.get("guest") || params.get("nombre") || params.get("invitado");
   return guestParam ? guestParam.trim() : "";
+}
+
+function formatGuestName(name) {
+  if (!name) return "";
+  return name
+    .split(/\s+/)
+    .map((word) =>
+      word.length ? word[0].toUpperCase() + word.slice(1).toLowerCase() : ""
+    )
+    .join(" ");
+}
+
+function normalizeName(name) {
+  if (!name) return "";
+  return name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function getGuestSeats(guestName = "") {
+  const params = new URLSearchParams(window.location.search);
+  const seatsParam =
+    params.get("seats") ||
+    params.get("lugares") ||
+    params.get("cupos") ||
+    params.get("reserva");
+
+  const fromList = guestSeatsMap[normalizeName(guestName)];
+  if (Number.isFinite(fromList) && fromList > 0) {
+    return Math.min(fromList, 6);
+  }
+
+  const seats = parseInt(seatsParam, 10);
+  if (!Number.isFinite(seats) || seats <= 0) return 1;
+  return Math.min(seats, 6); // evita valores absurdos
 }
 
 function pad(num) {
@@ -108,13 +132,19 @@ function personalizeRsvp() {
 
   const defaultMessage = button.dataset.waDefault || "Confirmo mi asistencia";
   const guestName = getGuestName();
+  const seats = getGuestSeats(guestName);
 
   let message = defaultMessage;
   if (guestName) {
     message = `Yo ${guestName} confirmo mi asistencia`;
+    if (seats > 1) message += ` para ${seats} personas`;
     const personalizedText = document.getElementById("rsvpPersonalized");
     if (personalizedText) {
-      personalizedText.textContent = `Hola ${guestName}, este enlace ya incluye tu nombre.`;
+      const seatsText =
+        seats > 1
+          ? `Tienes ${seats} lugares reservados.`
+          : "Tienes 1 lugar reservado.";
+      personalizedText.textContent = `Hola ${guestName}, este enlace ya incluye tu nombre. ${seatsText}`;
       personalizedText.hidden = false;
     }
   }
@@ -188,8 +218,11 @@ function setGuestLabel() {
   if (!label) return;
 
   const guestName = getGuestName();
+  const seats = getGuestSeats(guestName);
   if (guestName) {
-    label.textContent = guestName;
+    const displayName = formatGuestName(guestName);
+    const seatsSuffix = seats > 1 ? ` (+${seats - 1})` : "";
+    label.textContent = `${displayName}${seatsSuffix}`;
     label.hidden = false;
   } else {
     label.textContent = "";
