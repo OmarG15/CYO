@@ -118,10 +118,47 @@ function personalizeRsvp() {
   button.href = `${baseUrl}?text=${encoded}`;
 }
 
+function setupEnvelopeOverlay() {
+  const overlay = document.getElementById("envelopeOverlay");
+  if (!overlay) return;
+
+  const body = document.body;
+  const envelope = document.getElementById("envelope");
+  const stamp = document.querySelector(".envelope-stamp");
+  const openBtn = document.getElementById("envelopeOpen");
+  const resetBtn = document.getElementById("envelopeReset");
+  const closeBtn = document.getElementById("overlayClose");
+
+  const openEnvelope = () => {
+    if (!envelope) return;
+    envelope.classList.add("open");
+    envelope.classList.remove("close");
+    stamp?.classList.add("envelope-stamp--show");
+  };
+
+  const closeEnvelope = () => {
+    if (!envelope) return;
+    envelope.classList.add("close");
+    envelope.classList.remove("open");
+    stamp?.classList.remove("envelope-stamp--show");
+  };
+
+  envelope?.addEventListener("click", openEnvelope);
+  openBtn?.addEventListener("click", openEnvelope);
+  resetBtn?.addEventListener("click", closeEnvelope);
+
+  closeBtn?.addEventListener("click", () => {
+    overlay.classList.add("overlay-hidden");
+    overlay.setAttribute("aria-hidden", "true");
+    body.classList.remove("has-envelope-overlay");
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
   bindSmoothScroll();
   bindParallax();
   personalizeRsvp();
+  setupEnvelopeOverlay();
 });

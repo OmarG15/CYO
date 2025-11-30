@@ -11,7 +11,41 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body class="has-envelope-overlay">
+  <div class="envelope-overlay" id="envelopeOverlay" role="dialog" aria-modal="true" aria-label="Mensaje especial">
+    <button class="envelope-overlay__close" type="button" id="overlayClose" aria-label="Cerrar overlay">&times;</button>
+    <div class="envelope-overlay__content">
+      <p class="envelope-overlay__subtitle">El día más importante de nuestras vidas ha llegado.</p>
+      <h1 class="envelope-overlay__heading">¡Nos casamos!</h1>
+      <div class="envlope-wrapper">
+        <div class="envelope-stamp" aria-hidden="true">Ver más<br>detalles</div>
+        <span class="envelope-overlay__label">Clic aquí<br>para abrir</span>
+        <div id="envelope" class="close">
+          <div class="front flap"></div>
+          <div class="front pocket"></div>
+          <div class="envelope-clip">
+            <div class="letter" aria-hidden="true">
+              <div class="words line1"></div>
+              <div class="words line2"></div>
+              <div class="words line3"></div>
+              <div class="words line4"></div>
+            </div>
+            <div class="letter letter--polaroid" aria-hidden="true"></div>
+          </div>
+          <div class="hearts" aria-hidden="true">
+            <div class="heart a1"></div>
+            <div class="heart a2"></div>
+            <div class="heart a3"></div>
+          </div>
+        </div>
+      </div>
+      <h2 class="envelope-overlay__title">Celia &amp; Omar</h2>
+      <div class="reset">
+        <button id="envelopeOpen" type="button">Open</button>
+        <button id="envelopeReset" type="button">Reset</button>
+      </div>
+    </div>
+  </div>
   <div class="background-veil"></div>
   <header class="hero" id="inicio">
     <div class="hero__split">
