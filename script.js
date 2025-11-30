@@ -21,6 +21,13 @@ y en la ultima donde dice confirmar agergar el nombre de la persona
 
 const targetDate = new Date("2026-03-21T15:30:00-05:00");
 
+function getGuestName() {
+  const params = new URLSearchParams(window.location.search);
+  const guestParam =
+    params.get("guest") || params.get("nombre") || params.get("invitado");
+  return guestParam ? guestParam.trim() : "";
+}
+
 function pad(num) {
   return String(num).padStart(2, "0");
 }
@@ -100,9 +107,7 @@ function personalizeRsvp() {
   if (!baseUrl) return;
 
   const defaultMessage = button.dataset.waDefault || "Confirmo mi asistencia";
-  const params = new URLSearchParams(window.location.search);
-  const guestParam = params.get("guest") || params.get("nombre") || params.get("invitado");
-  const guestName = guestParam ? guestParam.trim() : "";
+  const guestName = getGuestName();
 
   let message = defaultMessage;
   if (guestName) {
@@ -157,6 +162,20 @@ function setupEnvelopeOverlay() {
   stamp?.addEventListener("click", hideOverlay);
 }
 
+function setGuestLabel() {
+  const label = document.querySelector(".envelope-overlay__label");
+  if (!label) return;
+
+  const guestName = getGuestName();
+  if (guestName) {
+    label.textContent = guestName;
+    label.hidden = false;
+  } else {
+    label.textContent = "";
+    label.hidden = true;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
@@ -164,4 +183,5 @@ document.addEventListener("DOMContentLoaded", () => {
   bindParallax();
   personalizeRsvp();
   setupEnvelopeOverlay();
+  setGuestLabel();
 });

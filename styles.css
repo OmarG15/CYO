@@ -799,9 +799,9 @@ textarea:focus {
 }
 
 :root {
-  --env-primary: #c49b63;
-  --env-secondary: #a88047;
-  --env-flap: #8a6a3a;
+  --env-primary: #9db583;
+  --env-secondary: #7f9b68;
+  --env-flap: #6a7f56;
   --env-bg: #f6efe4;
   --env-heart: #d45b68;
   --env-width: 360px;
@@ -864,10 +864,10 @@ body.has-envelope-overlay {
   left: 50%;
   bottom: calc(var(--env-height) / 4);
   transform: translateX(-50%);
-  font-size: 12px;
+  font-size: 20px;
   letter-spacing: 0.5px;
   text-transform: none;
-  color: var(--text);
+  color: beige;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -878,10 +878,10 @@ body.has-envelope-overlay {
 
 .envelope-overlay__title {
   margin-top: 32px;
-  font-size: clamp(28px, 5vw, 46px);
+  font-size: clamp(36px, 7vw, 62px);
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: var(--accent-strong);
+  color: #111;
 }
 
 .envelope-overlay__subtitle {
@@ -911,14 +911,16 @@ body.has-envelope-overlay {
 
 .envelope-stamp {
   position: absolute;
-  top: 48%;
-  left: 50%;
-  transform: translate(calc(var(--env-width) / 2 + 30px), -50%) rotate(-8deg) translateY(16px) scale(0.92);
+  bottom: calc(var(--env-height) / 6);
+  right: calc(50% - (var(--env-width) / 2) + 14px);
+  left: auto;
+  top: auto;
+  transform: translate(8px, 18px) rotate(-8deg) scale(0.92);
   width: clamp(94px, 20vw, 128px);
   height: clamp(94px, 20vw, 128px);
   border-radius: 50%;
-  border: 3px dashed rgba(138, 161, 116, 0.82);
-  background: radial-gradient(circle at 30% 30%, rgba(138, 161, 116, 0.18), rgba(138, 161, 116, 0.05) 52%, rgba(255, 255, 255, 0.8));
+  border: 3px dashed rgba(138, 161, 116, 0.9);
+  background: #f9f6ef;
   color: var(--accent-strong);
   display: grid;
   place-items: center;
@@ -932,12 +934,14 @@ body.has-envelope-overlay {
   opacity: 0;
   filter: blur(2px);
   transition: transform 0.45s ease, opacity 0.45s ease, filter 0.45s ease;
+  z-index: 10; /* por encima del sobre */
+  mix-blend-mode: normal;
 }
 
 .envelope-stamp--show {
   opacity: 1;
   filter: blur(0);
-  transform: translate(calc(var(--env-width) / 2 + 30px), -50%) rotate(-8deg);
+  transform: translate(0, 0) rotate(-8deg) scale(1);
 }
 
 #envelope {
@@ -950,7 +954,10 @@ body.has-envelope-overlay {
   margin-right: auto;
   top: 90px;
   background-color: var(--env-flap);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.2),
+    0 6px 14px rgba(0, 0, 0, 0.14),
+    inset 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 #envelope .front {
@@ -967,6 +974,7 @@ body.has-envelope-overlay {
   border-top: calc(var(--env-height) / 2.1) solid var(--env-flap);
   transform-origin: top;
   pointer-events: none;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.2));
 }
 
 #envelope .pocket {
@@ -976,6 +984,19 @@ body.has-envelope-overlay {
   border-top: calc(var(--env-height) / 2) solid transparent;
   border-bottom-left-radius: var(--env-radius);
   border-bottom-right-radius: var(--env-radius);
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.18));
+  position: relative;
+}
+
+#envelope .pocket::after {
+  content: "";
+  position: absolute;
+  inset: 8px 10px 6px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.06));
+  opacity: 0.7;
+  pointer-events: none;
+  border-bottom-left-radius: calc(var(--env-radius) / 2);
+  border-bottom-right-radius: calc(var(--env-radius) / 2);
 }
 
 .envelope-clip {
@@ -1271,6 +1292,7 @@ body.has-envelope-overlay {
   text-align: center;
 }
 
+
 .rule-card {
   background: #f3f3f3;
   border-radius: 12px;
@@ -1505,5 +1527,10 @@ body.has-envelope-overlay {
 
   .form__row--split {
     flex-direction: column;
+  }
+
+  .envelope-stamp {
+    right: calc(50% - (var(--env-width) / 2) + 6px);
+    bottom: calc(var(--env-height) / 10);
   }
 }
