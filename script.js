@@ -129,6 +129,12 @@ function setupEnvelopeOverlay() {
   const resetBtn = document.getElementById("envelopeReset");
   const closeBtn = document.getElementById("overlayClose");
 
+  const hideOverlay = () => {
+    overlay.classList.add("overlay-hidden");
+    overlay.setAttribute("aria-hidden", "true");
+    body.classList.remove("has-envelope-overlay");
+  };
+
   const openEnvelope = () => {
     if (!envelope) return;
     envelope.classList.add("open");
@@ -147,11 +153,8 @@ function setupEnvelopeOverlay() {
   openBtn?.addEventListener("click", openEnvelope);
   resetBtn?.addEventListener("click", closeEnvelope);
 
-  closeBtn?.addEventListener("click", () => {
-    overlay.classList.add("overlay-hidden");
-    overlay.setAttribute("aria-hidden", "true");
-    body.classList.remove("has-envelope-overlay");
-  });
+  closeBtn?.addEventListener("click", hideOverlay);
+  stamp?.addEventListener("click", hideOverlay);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

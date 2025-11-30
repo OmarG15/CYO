@@ -927,7 +927,8 @@ body.has-envelope-overlay {
   letter-spacing: 1.4px;
   font-size: clamp(11px, 2.4vw, 14px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   opacity: 0;
   filter: blur(2px);
   transition: transform 0.45s ease, opacity 0.45s ease, filter 0.45s ease;
