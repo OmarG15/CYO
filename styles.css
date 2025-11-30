@@ -95,10 +95,18 @@ a {
 
 .hero__panel--left {
   background-image: url("resources/DSC06764i.jpg");
+  background-image: image-set(
+    url("resources/DSC06764i.webp") type("image/webp"),
+    url("resources/DSC06764i.jpg") type("image/jpeg")
+  );
 }
 
 .hero__panel--right {
   background-image: url("resources/DSC06723i.jpg");
+  background-image: image-set(
+    url("resources/DSC06723i.webp") type("image/webp"),
+    url("resources/DSC06723i.jpg") type("image/jpeg")
+  );
 }
 
 .hero__veil {
@@ -353,12 +361,24 @@ a {
   background-image:
     linear-gradient(180deg, rgba(24, 26, 18, 0.12), rgba(24, 26, 18, 0.32)),
     url("resources/DSC06747i.jpg");
+  background-image:
+    linear-gradient(180deg, rgba(24, 26, 18, 0.12), rgba(24, 26, 18, 0.32)),
+    image-set(
+      url("resources/DSC06747i.webp") type("image/webp"),
+      url("resources/DSC06747i.jpg") type("image/jpeg")
+    );
 }
 
 .save-split__panel--right {
   background-image:
     linear-gradient(180deg, rgba(24, 26, 18, 0.12), rgba(24, 26, 18, 0.32)),
     url("resources/DSC06833i.jpg");
+  background-image:
+    linear-gradient(180deg, rgba(24, 26, 18, 0.12), rgba(24, 26, 18, 0.32)),
+    image-set(
+      url("resources/DSC06833i.webp") type("image/webp"),
+      url("resources/DSC06833i.jpg") type("image/jpeg")
+    );
 }
 
 .save-split__content {
@@ -1006,7 +1026,14 @@ body.has-envelope-overlay {
   width: clamp(54px, 12vw, 82px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%) scale(1);
-  background: url("resources/golden-heart-seal-transparent.png") center / contain no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("resources/golden-heart-seal-transparent.png");
+  background-image: image-set(
+    url("resources/golden-heart-seal-transparent.webp") type("image/webp"),
+    url("resources/golden-heart-seal-transparent.png") type("image/png")
+  );
   border-radius: 50%;
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.22));
   pointer-events: none;
@@ -1039,6 +1066,10 @@ body.has-envelope-overlay {
 #envelope .letter {
   position: absolute;
   background-image: url("resources/DSC06774.JPG");
+  background-image: image-set(
+    url("resources/DSC06774.webp") type("image/webp"),
+    url("resources/DSC06774.JPG") type("image/jpeg")
+  );
   background-size: cover;
   background-position: center;
   width: 82%;
@@ -1079,6 +1110,10 @@ body.has-envelope-overlay {
   inset: 12px 12px 28px;
   border-radius: 8px;
   background-image: url("resources/DSC06863i.jpg");
+  background-image: image-set(
+    url("resources/DSC06863i.webp") type("image/webp"),
+    url("resources/DSC06863i.jpg") type("image/jpeg")
+  );
   background-size: cover;
   background-position: center;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
@@ -1097,6 +1132,10 @@ body.has-envelope-overlay {
   inset: 12px 12px 28px;
   border-radius: 8px;
   background-image: url("resources/DSC06766.JPG");
+  background-image: image-set(
+    url("resources/DSC06766.webp") type("image/webp"),
+    url("resources/DSC06766.JPG") type("image/jpeg")
+  );
   background-size: cover;
   background-position: center;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
