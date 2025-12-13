@@ -176,7 +176,7 @@ function personalizeRsvp() {
         seats > 1
           ? `Tienes ${seats} lugares reservados.`
           : "Tienes 1 lugar reservado.";
-      personalizedText.textContent = `Hola ${guestName}, este enlace ya incluye tu nombre. ${seatsText}`;
+      personalizedText.textContent = `Hola ${guestName}. ${seatsText}`;
       personalizedText.hidden = false;
     }
   }
