@@ -4,8 +4,40 @@ const targetDate = new Date("2026-03-21T15:30:00-05:00");
 
 // Edita este mapa: cada invitado y sus cupos reservados
 const guestSeatsMap = {
-  "celia": 2,
-  "anthony": 2,
+  zaira: 2,
+  cris: 2,
+  diana: 2,
+  ana: 1,
+  yaira: 2,
+  celia: 2,
+  gaby: 2,
+  carlitos: 1,
+  teby: 1,
+  eduardo: 1,
+  irene: 2,
+  rocio: 1,
+  claudia: 1,
+  dinora: 2,
+  anto: 1,
+  dilcia : 1,
+  berna: 2,
+  jonathan: 1,
+  sarah: 1,
+  gabriel: 1,
+  david: 1,
+  xena: 1,
+  jennia: 1,
+  oki: 1,
+  paola: 1,
+  miriam: 2,
+  naylea: 2,
+  kevin: 1,
+  agustin: 1,
+  eva: 1,
+  anthony: 2,
+  yuli: 1,
+  vanessa: 1,
+  carolina: 1,
 };
 
 function getGuestName() {
@@ -215,18 +247,31 @@ function setupEnvelopeOverlay() {
 
 function setGuestLabel() {
   const label = document.querySelector(".envelope-overlay__label");
-  if (!label) return;
+  const seatsMessage = document.getElementById("envelopeSeatsMessage");
+  if (!label && !seatsMessage) return;
 
   const guestName = getGuestName();
   const seats = getGuestSeats(guestName);
   if (guestName) {
     const displayName = formatGuestName(guestName);
-    const seatsSuffix = seats > 1 ? ` (+${seats - 1})` : "";
-    label.textContent = `${displayName}${seatsSuffix}`;
-    label.hidden = false;
+    if (label) {
+      label.textContent = displayName;
+      label.hidden = false;
+    }
+    if (seatsMessage) {
+      const plural = seats === 1 ? "" : "es";
+      seatsMessage.textContent = `Hemos reservado ${seats} lugar${plural} en tu honor`;
+      seatsMessage.hidden = false;
+    }
   } else {
-    label.textContent = "";
-    label.hidden = true;
+    if (label) {
+      label.textContent = "";
+      label.hidden = true;
+    }
+    if (seatsMessage) {
+      seatsMessage.textContent = "";
+      seatsMessage.hidden = true;
+    }
   }
 }
 

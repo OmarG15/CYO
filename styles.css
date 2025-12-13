@@ -983,6 +983,13 @@ body.has-envelope-overlay {
   z-index: 10;
 }
 
+.envelope-overlay__seats {
+  margin: 4px 0 14px;
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  color: var(--text);
+}
+
 .envelope-overlay__title {
   margin-top: 32px;
   font-size: clamp(36px, 7vw, 62px);
