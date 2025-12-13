@@ -165,10 +165,11 @@ function personalizeRsvp() {
   const defaultMessage = button.dataset.waDefault || "Confirmo mi asistencia";
   const guestName = getGuestName();
   const seats = getGuestSeats(guestName);
+  const displayName = formatGuestName(guestName);
 
   let message = defaultMessage;
   if (guestName) {
-    message = `Yo ${guestName} confirmo mi asistencia`;
+    message = `Yo ${displayName} confirmo mi asistencia`;
     if (seats > 1) message += ` para ${seats} personas`;
     const personalizedText = document.getElementById("rsvpPersonalized");
     if (personalizedText) {
@@ -176,7 +177,7 @@ function personalizeRsvp() {
         seats > 1
           ? `Tienes ${seats} lugares reservados.`
           : "Tienes 1 lugar reservado.";
-      personalizedText.textContent = `Hola ${guestName}. ${seatsText}`;
+      personalizedText.textContent = `Hola ${displayName}. ${seatsText}`;
       personalizedText.hidden = false;
     }
   }
