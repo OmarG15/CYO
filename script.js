@@ -5,7 +5,7 @@ const targetDate = new Date("2026-03-21T15:30:00-05:00");
 // Edita este mapa: cada invitado y sus cupos reservados
 const guestSeatsMap = {
   zaira: 2,
-  cris: 2,
+  cristian: 2,
   diana: 2,
   ana: 1,
   yaira: 2,
