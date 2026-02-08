@@ -167,7 +167,9 @@ function personalizeRsvp() {
   const defaultMessage = button.dataset.waDefault || "Confirmo mi asistencia";
   const guestName = getGuestName();
   const seats = getGuestSeats(guestName);
-  const displayName = formatGuestName(guestName);
+  const normalizedName = normalizeName(guestName);
+  const displayName =
+    normalizedName === "anthony" ? "Anthony y Lily" : formatGuestName(guestName);
 
   let message = defaultMessage;
   if (guestName) {
@@ -256,7 +258,9 @@ function setGuestLabel() {
   const guestName = getGuestName();
   const seats = getGuestSeats(guestName);
   if (guestName) {
-    const displayName = formatGuestName(guestName);
+    const normalizedName = normalizeName(guestName);
+    const displayName =
+      normalizedName === "anthony" ? "Anthony y Lily" : formatGuestName(guestName);
     if (label) {
       label.textContent = displayName;
       label.hidden = false;
