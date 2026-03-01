@@ -40,6 +40,7 @@ const guestSeatsMap = {
   carolina: 1,
   elisa: 2,
   eury: 2,
+  yaneth: 1
 };
 
 function getGuestName() {
